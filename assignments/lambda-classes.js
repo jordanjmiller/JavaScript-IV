@@ -31,6 +31,9 @@ class Instructor extends Person{
             if ((Math.floor(Math.random() * 100)) < 50){
                 scoreAdjust = Math.floor(Math.random() * 5)+1;
                 console.log(`${this.name} increased ${student.name}'s grade by ${scoreAdjust}`);
+                if (student.grade > 100){
+                    student.grade = 100;
+                }  
                 student.grade += scoreAdjust;
             }
             else{
