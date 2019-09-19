@@ -23,10 +23,28 @@ class Instructor extends Person{
     demo(subject){ return `Today we are learning about ${subject}`; };
     grade(student, subject){ return `${student.name} recieves a perfect score on ${subject}`;  };
     stretchGrade(student) { 
-        if (student.graduate() === false)
-        {
-
+        let scoreAdjust = 0;
+        console.log(student.graduated);
+        console.log(student.grade);
+        student.graduate();
+        while(student.graduated === false){
+            if ((Math.floor(Math.random() * 100)) < 50){
+                scoreAdjust = Math.floor(Math.random() * 5)+1;
+                console.log(`${this.name} increased ${student.name}'s grade by ${scoreAdjust}`);
+                student.grade += scoreAdjust;
+            }
+            else{
+                scoreAdjust = Math.floor(Math.random() * 5)+1;
+                console.log(`${this.name} decreased ${student.name}'s grade by ${scoreAdjust}`);  
+                if (student.grade <= 0){
+                    student.grade = 0;
+                }  
+                student.grade -= scoreAdjust;
+            }
+            console.log(student.grade);
+            student.graduate();
         }
+        console.log(`${student.name} graduated with a ${student.grade}`);
     }
 }
 
@@ -37,13 +55,14 @@ class Student extends Person{
         this.className = attributes.className;
         this.favSubjects = attributes.favSubjects;
         this.grade = attributes.grade;
+        this.graduated = attributes.graduated;
     }
     listSubjects(){ return console.log(this.favSubjects)};
     PRAssignment(subject){ return `${this.name} has subbmitted a PR for ${subject}`;  };
     sprintChallenge(subject){ return `${this.name} has begun sprint challenge on ${subject}`;};
     graduate(){ 
-        if (this.grade/100 > 70) { return this.graduate = true; } 
-        else { return this.graduate = false; }
+        if (this.grade > 70) { return this.graduated = true; } 
+        else { return this.graduated = false; }
     }
 }
 
@@ -89,6 +108,7 @@ const harvy = new Student({
     className: 'WEB24',
     favSubjects: 'rocket science',
     grade: Math.floor(Math.random() * 101),
+    graduated: false,
 });
 
 //Student
@@ -105,3 +125,6 @@ console.log(fred.grade(harvy, harvy.favSubjects));
 console.log(junior.favInstructor.name);
 console.log(junior.standup('WEB24-Junior'));
 console.log(junior.debugsCode(harvy.name, harvy.favSubjects));
+
+//stretch
+fred.stretchGrade(harvy);
