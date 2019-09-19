@@ -30,7 +30,7 @@ class Instructor extends Person{
     }
 }
 
-class student extends Person{
+class Student extends Person{
     constructor(attributes){
         super(attributes);
         this.previousBackground = attributes.previousBackground;
@@ -69,3 +69,39 @@ const fred = new Instructor({
     specialty: 'Front-end',
     catchPhrase: `Don't forget the homies`
   });
+
+const junior = new ProjectManager({
+    name: 'junior',
+    location: 'Bedrock',
+    age: 37,
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`,
+    gradClassName: 'WEB19',
+    favInstructor: fred,
+});
+
+const harvy = new Student({
+    name: 'harvy',
+    location: 'moon',
+    age: 52,
+    previousBackground: 'Astronaut',
+    className: 'WEB24',
+    favSubjects: 'rocket science',
+    grade: Math.floor(Math.random() * 101),
+});
+
+//Student
+console.log(harvy);
+harvy.listSubjects();
+console.log(harvy.PRAssignment(harvy.favSubjects));
+console.log(harvy.sprintChallenge(harvy.favSubjects));
+
+//Instructor
+console.log(fred.demo('rocket science'));
+console.log(fred.grade(harvy, harvy.favSubjects));
+
+//PM
+console.log(junior.favInstructor.name);
+console.log(junior.standup('WEB24-Junior'));
+console.log(junior.debugsCode(harvy.name, harvy.favSubjects));
